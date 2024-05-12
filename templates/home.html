@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title >My Website</title>
+    {% include 'bootstrap.html' %}
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+    <div class="container">
+        <h1 class="text-center mt-1 mb-1">Welcome to Joges Financials</h1>
+        {% if username %}
+        <h2 class="text-center mt-2 mb-2">Hello {{username}}</h2>
+        {% else %}
+        <p class="lead">Not logged in.. <a href="/login"</a> Login</h2>
+        {% endif %}
+        <p class="lead">test para2</p>
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg">Contact Us</button>
+            <p class="mt-4">Copy Rights reserved</p>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration Submitted {{insert_status_s}}</title>
+        {% include 'bootstrap.html' %}
+    </head>
+    <body>
+        {% include 'nav.html' %}
+        {% include 'banner.html' %}
+        <!--<h2>S: {{insert_status_s}}</h2>-->
+    <div class="container">
+         <h1 class="text-center mt-4 mb-4"> Joges Registration </h1>
+        {% if insert_status_s == "Y" %}
+        <div>
+        <p>Your Account has been created with user id <b> {{data['username']}} </b> at Joges Financials.Please login to continue your financial journey..</p>
+        </div>
+         {% endif %}
+        {% if insert_status_s == "N" %}
+        <div>
+        <p class="text-danger">Your Account cannot be created with user id <b> {{data['username']}} </b> at Joges Financials.Please try other user id..</p>
+        </div>
+         {% endif %}
+        
+        <h4 class = "mb-0" >Full Name</h4>
+        <div class= "mb-4" >{{data['full_name']}}</div>
+
+        <h4 class = "mb-0" >Email</h4>
+        <div class= "mb-4" > {{data['email']}}</div>
+
+        <h4 class = "mb-0" >User Name</h4>
+        <div class= "mb-4" > {{data['username']}}</div>
+    </div>
+    </body>
+</html>
