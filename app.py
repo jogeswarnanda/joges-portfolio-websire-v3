@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/")
 def landing_page():
   if 'username' in session:
-    return render_template('home.html', username=session['username'])
+    return render_template('dashboard.html', username=session['username'])
   else:
     return render_template("home.html")
 
@@ -27,7 +27,7 @@ def login_page():
       if (lpassword == pwd):
         session['username'] = lusername
         username = session['username']
-        return render_template("home.html", username=username)
+        return render_template("dashboard.html", username=username)
       else:
         return render_template("login.html",
                                error="Invalid username or password")
