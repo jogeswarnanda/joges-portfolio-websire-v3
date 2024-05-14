@@ -4,6 +4,9 @@ from database import add_user_to_db, validate_username, verify_login
 #Name Initialization
 app = Flask(__name__)
 
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
 #Home route
 @app.route("/")
 def landing_page():
