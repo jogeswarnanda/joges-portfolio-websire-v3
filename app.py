@@ -13,7 +13,7 @@ def landing_page():
     return render_template("home.html")
 
 #Login route
-@app.route("/login/", methods=['GET', 'POST'])
+@app.route("/login/")
 def login_page():
   if request.method == 'POST':
     data = []
@@ -36,6 +36,31 @@ def login_page():
                              error="Invalid username or password")
   else:
     return render_template("login.html")
+
+@app.route("/login/submitted", methods=['GET', 'POST'])
+def login_page_submitted ():
+  if request.method == 'POST':
+    data = []
+    data = request.form
+    lusername = request.form.get('lusername')
+    lpassword = request.form.get('lpassword')
+    found_stat = 'N'
+    pwd = " "
+    found_stat, pwd = verify_login(lusername, data, found_stat, pwd)
+    if found_stat == 'Y':
+      if (lpassword == pwd):
+        session['username'] = lusername
+        username = session['username']
+        return render_template("dashboard.html", username=username)
+      else:
+        return render_template("login.html",
+                               error="Invalid username or password")
+    else:
+      return render_template("login.html",
+                             error="Invalid username or password")
+  else:
+    return render_template("login.html")
+
 
 #Logout route
 @app.route("/logout/", methods=['GET', 'POST'])

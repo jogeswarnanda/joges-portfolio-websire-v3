@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login to Joges Financials </title>
+    {% include 'bootstrap.html' %}
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">Joges Financials Login</h1>
+        {% include 'loginform.html' %}
+        {% if error %}
+         <p class="text-danger mt-4">Username/ Password mismatch..</p>
+        {% endif %}
+    </div>
+    
+    
+    {% include 'footer.html' %}
+</body>
+</html>
