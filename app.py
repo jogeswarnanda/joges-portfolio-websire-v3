@@ -25,7 +25,9 @@ def login_page():
     lpassword = request.form.get('lpassword')
     found_stat = 'N'
     pwd = " "
+    
     found_stat, pwd = verify_login(lusername, data, found_stat, pwd)
+    print("F STAT after DB call", found_stat)
     if found_stat == 'Y':
       if (lpassword == pwd):
         session['username'] = lusername
@@ -35,8 +37,9 @@ def login_page():
         return render_template("login.html",
                                error="Invalid username or password")
     else:
+      print("IN ELSE", found_stat)
       return render_template("login.html",
-                             error="Invalid username or password")
+                             error="User not found. Please register")
   else:
     return render_template("login.html")
 
@@ -50,6 +53,7 @@ def login_page_submitted ():
     found_stat = 'N'
     pwd = " "
     found_stat, pwd = verify_login(lusername, data, found_stat, pwd)
+    print("F STAT after DB call 1", found_stat)
     if found_stat == 'Y':
       if (lpassword == pwd):
         session['username'] = lusername
@@ -59,8 +63,9 @@ def login_page_submitted ():
         return render_template("login.html",
                                error="Invalid username or password")
     else:
+      print("IN ELSE1 ", found_stat)
       return render_template("login.html",
-                             error="Invalid username or password")
+                             error="User not found. Please register")
   else:
     return render_template("login.html")
 

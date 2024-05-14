@@ -35,7 +35,7 @@ def verify_login (user_name,data,found_stat,pwd):
     rows = result.all()
     print(type(rows))
     print("rows_new@@::", rows)
-    print(rows[0][4])
+    #print(rows[0][4])
     if len(rows) == 0:
       found_stat = "N"
       print("set found sta N:")

@@ -11,7 +11,7 @@
         <h1 class="text-center mt-4 mb-4">Joges Financials Login</h1>
         {% include 'loginform.html' %}
         {% if error %}
-         <p class="text-danger mt-4">Username/ Password mismatch..</p>
+         <p class="text-danger mt-4">{{ error }}</p>
         {% endif %}
     </div>
     
