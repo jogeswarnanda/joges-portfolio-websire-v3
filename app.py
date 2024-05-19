@@ -4,7 +4,6 @@ from database import add_stock_to_db, add_user_to_db, validate_username, verify_
 import requests
 from bs4 import BeautifulSoup
 import time
-import pandas as pd
 
 #Name Initialization
 app = Flask(__name__)
