@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add stocks </title>
+    {% include 'bootstrap.html' %}
+</head>
+<body>
+    {% include 'nav_dashboard.html' %}
+    {% include 'banner_dashboard.html' %}
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">Add stocks</h1>
+        {% include 'add_stock_form.html' %}
+        <br><br>
+        {% if error %}
+        <p class="text-danger mt-4"> {{error}}</p>
+        {% else %}
+        <p class="lead">Stock Added Successfully!</p>
+        {% endif %}
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

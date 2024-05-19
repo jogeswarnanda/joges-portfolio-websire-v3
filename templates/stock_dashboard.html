@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title >Stock Dashboard</title>
+    <link rel="stylesheet" href="/static/mystyle.css">
+    {% include 'bootstrap.html' %}
+    <title >My Website</title>
+</head>
+<body>
+  {% include 'nav_dashboard.html' %}
+  {% include 'banner_dashboard.html' %}
+  {% include 'sidebar.html' %}
+
+  <h1 class="text-center mt-4 mb-4">Stock Portfolio</h1>
+  
+  <div class="container">
+    <div class="row">
+       <div class="col-4">
+          <table class="table table-striped">
+            <tbody>
+               <tr>
+               <td><b>Total Count<b></b></td>
+               <td><b>{{ total_cnt }}</td>
+               </tr>
+               <tr>
+               <td><b>Total Invested<b></b></td>
+               <td><b>{{ total_invested }}</td>
+               </tr>
+               <tr>
+               <td><b>Total P/L</b></td>
+               <td><b>{{ total_pl }}</b></td>
+               </tr>
+               <tr>
+              <td><b>Total P/L %</b></td>
+              <td><b>{{ p_l_p_t }}</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <br>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Stocks.." >
+    <table id="myTable">
+      <caption>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Stock Name</th>
+          <th scope="col">Broker</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Avg Price</th>
+          <th scope="col">Amount Inv.</th>
+          <th scope="col">Cur Price</th>
+          <th scope="col">Cur val.</th>
+          <th scope="col">P/L</th>
+          <th scope="col">P/L %</th>
+        </tr>
+      </thead>
+      {% for stock in stock_details %}
+              {% include 'stockitem.html' %}
+              {% endfor %}
+        <!--tfoot>
+          <tr>
+            <th scope="row" colspan="8">Total Invested</th>
+            <td><b>{{ total_invested }}</b></td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="8">Total P/L</th>
+            <td><b>{{ total_pl }}</b></td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="8">Total P/L %</th>
+            <td><b>{{ p_l_p_t }}</b></td>
+          </tr>
+    </tfoot-->
+    </table>
+      <!--h2 class="text-center mt-2 mb-2">About 2</h2>
+      <p class="lead">{{ total_invested }}</p>
+      <p class="lead">{{ total_pl }}</p>
+      <p class="lead">{{ p_l_p_t }}</p -->
+      <div class="text-center">
+          <button class="btn btn-primary btn-lg">Contact Us</button>
+          <p class="mt-4">Copy Rights reserved</p>
+      </div>
+      {% include 'footer.html' %}
+  </div>
+  
+  <script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
+</body>
+</html>

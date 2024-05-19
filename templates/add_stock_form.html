@@ -1,0 +1,52 @@
+<h4> Add Stock Form </h4>
+<form action="/addstock/submitted" method="POST">
+  <div class = "mb-2">
+  <label>Stock Name </label><br>
+  <input type="text" required name = "a_stock_name" placeholder="JIOFIN" value="{{ request.form['a_stock_name'] }}"><br>
+  </div> 
+  
+  <div class = "mb-2">
+    <label>User Name </label><br>
+    <input type="text" required name = "a_stock_username" value={{username}}><br>
+    </div> 
+
+  <!--div class = "mb-2">
+    <label>Stock Symbol </label><br>
+    <input type="text" required name = "a_stock_symbol" placeholder="JIOFIN:NSE" value="{{ request.form['a_stock_symbol'] }}"><br>
+</div-->
+
+  <div class = "mb-2">
+    <label>Stock Exchange </label><br>
+    <select name="a_stock_exchange" id="a_stock_exchange">
+      <option value="NSE">NSE</option>
+      <option value="BSE">BSE</option>
+    </select>
+    
+    <!--input type="text" required name = "a_stock_exchange" placeholder="JIOFIN:NSE" value="{{ request.form['a_stock_exchange'] }}"><br>
+  </div-->
+
+  <div class = "mb-2">
+    <label>Stock Broker </label><br>
+    <select name="a_stock_broker" id="a_stock_broker">
+      <option value="DHAN">DHAN</option>
+      <option value="FYERS">FYERS</option>
+      <option value="GROWW">GROWW</option>
+      <option value="ZERODHA">ZERODHA</option>
+      
+    </select>
+    
+    <!--input type="text" required name = "a_stock_broker" placeholder="JIOFIN:NSE" value="{{ request.form['a_stock_broker'] }}"><br-->
+    </div>
+
+  <div class = "mb-2">
+    <label>Stock Quantity </label><br>
+    <input type="number" required name = "a_stock_quantity" placeholder="10" value="{{ request.form['a_stock_quantity'] }}"><br>
+    </div>
+
+  <div class = "mb-2">
+    <label>Avg Buy price </label><br>
+    <input type="decimal" required name = "a_stock_buyp" placeholder="100.00" value="{{ request.form['a_stock_buyp'] }}"><br>
+    </div>
+  
+  <input type="submit" action="submit">
+</form>

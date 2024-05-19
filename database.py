@@ -51,3 +51,21 @@ def add_user_to_db(user_name,data):
     result1 = conn.execute(text("INSERT INTO users (user_name,user_full_name,user_email,user_password) VALUES(:u_name,:full_name,:email,:password)"),
 {"u_name": data.get("username"), "full_name" : data.get("full_name"),"email" : data.get("email"),"password" : data.get("password")});
     conn.commit()
+
+def add_stock_to_db(data):
+  a_stock_symbol1 = data.get("a_stock_name") + ":NSE"
+  print("S SYMBOL ADD DATA",a_stock_symbol1 )
+  with engine.connect() as conn:
+    result1 = conn.execute(text("INSERT INTO stocks (stock_name,stock_symbol,stock_exchange,stock_broker_name,stock_user_name,stock_quantity,stock_avg_price) VALUES(:a_stock_name,:a_stock_symbol1,:a_stock_exchange,:a_stock_broker,:a_stock_username,:a_stock_quantity,:a_stock_buyp)"),
+{"a_stock_name": data.get("a_stock_name"), "a_stock_symbol1" :a_stock_symbol1,"a_stock_exchange" : data.get("a_stock_exchange"),"a_stock_broker" : data.get("a_stock_broker"),"a_stock_username": data.get("a_stock_username"),"a_stock_quantity": data.get("a_stock_quantity"),"a_stock_buyp": data.get("a_stock_buyp")});
+    conn.commit() 
+
+
+def load_stocks_from_db():
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from stocks ORDER BY stock_name"))
+    stocks = []
+    for r in result.all():
+      stocks.append(r)
+    #print ("SAALLLLA :", jobs)
+    return stocks

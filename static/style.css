@@ -1,0 +1,38 @@
+html, body
+{
+  font-family: 'Ubuntu', sans-serif;
+  height:100%;
+}
+ .mynav {
+   color:#fff
+ }
+.mynav li a {
+   color:#fff;
+   width: 100%;
+   display : block;
+   border-redius: 5px;
+   padding: 8px 5px;
+   text-decoration:none;
+ }
+
+.mynav li a.active {
+  background-color: rgba(0, 0, 255, 0.5);
+ }
+
+.mynav li a:hover {
+  background-color: rgba(0, 0, 255, 0.5);
+ }
+
+.mynav li a i{
+  width:25px;
+  text-aligg:center;
+}
+
+.notification-badge {
+  background-color: rgba(255, 255, 255, 0.5);
+  float:right;
+  color:#222;
+  font-size:14px;
+  padding: 0 px 8px;
+  border-radius: 2px;
+}
