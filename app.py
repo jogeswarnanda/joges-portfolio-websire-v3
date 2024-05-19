@@ -4,6 +4,7 @@ from database import add_stock_to_db, add_user_to_db, validate_username, verify_
 import requests
 from bs4 import BeautifulSoup
 import time
+import yfinance as yf
 
 #Name Initialization
 app = Flask(__name__)
@@ -145,12 +146,17 @@ def stock_portfolio():
         quantity  = stock [6]
         avg_price = stock [7]
         inv_amt   = quantity * avg_price 
-        url       =f'https://www.google.com/finance/quote/{ticker}'
+        #url       =f'https://www.google.com/finance/quote/{ticker}'
         #print("url>>>>> ...",  stocks)
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        class1='YMlKec fxKbKc'
-        curr_price = float(soup.find(class_= class1).text.strip()    [1:].replace("," , ""))
+        #response = requests.get(url)
+        #soup = BeautifulSoup(response.text, 'html.parser')
+        #class1='YMlKec fxKbKc'
+        #curr_price = float(soup.find(class_= class1).text.strip()    [1:].replace("," , ""))
+        s_NS = sname + "." + "NS"
+        sname_yahoo = yf.Ticker(s_NS)
+        #data1= stock.info
+        curr_price = sname_yahoo.info['currentPrice']
+        #print("CP >>>", curr_price)
         curr_val = curr_price * quantity
         curr_val = round(curr_val, 2)
         p_l = float(curr_val) - float(inv_amt)

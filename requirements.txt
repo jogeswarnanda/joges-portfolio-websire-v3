@@ -3,5 +3,4 @@ gunicorn
 sqlalchemy
 pymysql
 psycopg2
-requests
-BeautifulSoup4
+yfinance
