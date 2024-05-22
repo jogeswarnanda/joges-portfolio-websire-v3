@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import yfinance as yf
+import simplejson as json
 
 #Name Initialization
 app = Flask(__name__)
@@ -133,47 +134,77 @@ def stock_portfolio():
       #    'Mutual Fund' : sum(MF_values),
       #    'Cash'        : cash 
       #    }
-      stock_details = []
+      stock_details  = []
+      stock_list     = []
+      stock_portion  = []
       total_invested = 0
       total_pl       = 0
       total_cnt      = 0
+      print ("time iterate")
+      industries            = []
+      industries_allocation = []
       for stock in stocks:
-        total_cnt = total_cnt + 1
-        ticker    = stock [2]
-        sname     = stock [1]
-        exchange  = stock [3]
-        broker    = stock [4]
-        quantity  = stock [6]
-        avg_price = stock [7]
-        inv_amt   = quantity * avg_price 
-        #url       =f'https://www.google.com/finance/quote/{ticker}'
-        #print("url>>>>> ...",  stocks)
-        #response = requests.get(url)
-        #soup = BeautifulSoup(response.text, 'html.parser')
-        #class1='YMlKec fxKbKc'
-        #curr_price = float(soup.find(class_= class1).text.strip()    [1:].replace("," , ""))
-        s_NS = sname + "." + "NS"
-        sname_yahoo = yf.Ticker(s_NS)
-        #data1= stock.info
-        curr_price = sname_yahoo.info['currentPrice']
-        #print("CP >>>", curr_price)
-        curr_val = curr_price * quantity
-        curr_val = round(curr_val, 2)
-        p_l = float(curr_val) - float(inv_amt)
-        p_l = round(p_l, 2)
-        p_l_p1 = (p_l / float(inv_amt)) 
-        p_l_p  = '{:.2%}'.format(p_l_p1)
-        total_invested = total_invested + float(inv_amt)
-        total_invested = round(total_invested, 2)
-        total_pl  = total_pl + float(p_l)
-        total_pl = round(total_pl, 2)
-        p_l_pt1 = (total_pl / float(total_invested)) 
-        p_l_p_t  = '{:.2%}'.format(p_l_pt1)
-        t1 =(sname,broker,quantity,avg_price,inv_amt,curr_price,curr_val,p_l,p_l_p)
-        #print("t1::", t1 )
-        stock_details.append(t1)
-        #print("stock_details::", stock_details )
-      return render_template("stock_dashboard.html",stock_details =stock_details,total_invested=total_invested,total_pl=total_pl,p_l_p_t=p_l_p_t,total_cnt=total_cnt, username=username)
+         total_cnt = total_cnt + 1
+         ticker    = stock [2]
+         sname     = stock [1]
+         exchange  = stock [3]
+         broker    = stock [4]
+         quantity  = stock [6]
+         avg_price = stock [7]
+         inv_amt   = quantity * avg_price 
+         inv_amt = round(inv_amt, 2)
+         #url       =f'https://www.google.com/finance/quote/{ticker}'
+         #print("url>>>>> ...",  stocks)
+         #response = requests.get(url)
+         #soup = BeautifulSoup(response.text, 'html.parser')
+         #class1='YMlKec fxKbKc'
+         #curr_price = float(soup.find(class_= class1).text.strip()    [1:].replace("," , ""))
+         s_NS = sname + "." + "NS"
+         sname_yahoo = yf.Ticker(s_NS)
+         #data1= stock.info
+         curr_price = sname_yahoo.info['currentPrice']
+         #print("CP >>>", curr_price)
+         curr_val = curr_price * quantity
+         curr_val = round(curr_val, 2)
+         p_l = float(curr_val) - float(inv_amt)
+         p_l = round(p_l, 2)
+         p_l_p1 = (p_l / float(inv_amt)) 
+         p_l_p  = '{:.2%}'.format(p_l_p1)
+         total_invested = total_invested + float(inv_amt)
+         total_invested = round(total_invested, 2)
+         total_pl  = total_pl + float(p_l)
+         total_pl = round(total_pl, 2)
+         p_l_pt1 = (total_pl / float(total_invested)) 
+         p_l_p_t  = '{:.2%}'.format(p_l_pt1)
+         t1 =(sname,broker,quantity,avg_price,inv_amt,curr_price,curr_val,p_l,p_l_p)
+         #print("t1::", t1 )
+         stock_p = float(inv_amt) 
+         stock_details.append(t1)
+         stock_list.append(sname)
+         stock_portion.append(stock_p)
+         #print("stock_details::", stock_details )
+         #industry computation
+         industry = sname_yahoo.info['industry']
+         #print(sname,industry)
+         inv_amt1 = 0
+         #print("stock", sname)
+         #print("inv amt:", inv_amt)
+         #print("industry:", industry)
+         if industry in industries:
+           index_ind = industries.index(industry)
+           inv_amt1 = float(industries_allocation[index_ind]) + float(inv_amt)
+           industries_allocation[index_ind] = inv_amt1
+         else:
+           industries.append(industry)
+           index_ind = industries.index(industry)
+           industries_allocation.insert (index_ind,float(inv_amt))
+         #print("industries :", industries)
+         #print("industryal :", industries_allocation)
+      #print("industries:", industries)
+      #print("industries_allocation:", industries_allocation)
+      #print("len1:", len(industries))
+      #print("len2:", len(industries_allocation))
+      return render_template("stock_dashboard.html",stock_details =stock_details,total_invested=total_invested,total_pl=total_pl,p_l_p_t=p_l_p_t,total_cnt=total_cnt,username=username,stock_list=json.dumps(stock_list),stock_portion=json.dumps(stock_portion),industries=json.dumps(industries),industries_allocation=json.dumps(industries_allocation))
     else:
       return render_template("home.html")
  

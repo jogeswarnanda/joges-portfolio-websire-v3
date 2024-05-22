@@ -4,6 +4,7 @@
     <title >Stock Dashboard</title>
     <link rel="stylesheet" href="/static/mystyle.css">
     {% include 'bootstrap.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title >My Website</title>
 </head>
 <body>
@@ -39,6 +40,108 @@
         </div>
     </div>
     <br>
+
+    <div class = "row">
+      
+    <div class="col-xs-10 col-sm-6 col-md-6">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="stock-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-10 col-sm-6 col-md-6">
+      <div class="card card-style mb-2">
+          <div class="card-body">
+              <div class="chart-container" style="position: relative;">
+                  <canvas id="stock-chart2"></canvas>
+              </div>
+          </div>
+      </div>
+    </div>
+    </div> 
+    
+    <script>
+      const ctx = document.getElementById('stock-chart');
+      let stock_list    = JSON.parse({{stock_list | tojson }});
+      let stock_portion = JSON.parse({{stock_portion | tojson }});
+
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: stock_list,
+          datasets: [{
+            label: 'Stocks Allocation',
+            data: stock_portion,
+            borderWidth: 1,
+            borderWidth: 1,
+            hoverBorderColor: "black",
+            hoverBorderWidth: 2,
+            hoverBackgroundColor: 'rgba(154, 245, 140)',
+            pointHoverRadius: 5
+          }]
+        },
+        options: {
+                title: {
+                    display: true,
+                        text: "Income Vs Expenses"
+                },
+                legend: {
+                    position: "right",
+                        labels: {
+                        fontColor: "gray"
+                    },
+                    display: true,
+                },
+
+                elements: {
+                    hitRadius: 3,
+                }
+        }
+      });
+
+      const ctx2 = document.getElementById('stock-chart2');
+      let industries            = JSON.parse({{industries | tojson }});
+      let industries_allocation = JSON.parse({{industries_allocation | tojson }});
+
+      new Chart(ctx2, {
+        type: 'pie',
+        data: {
+          labels: industries,
+          datasets: [{
+            label: 'Industry Allocation',
+            title:'TEST',
+            data: industries_allocation,
+            borderWidth: 1,
+            borderWidth: 1,
+            hoverBorderColor: "black",
+            hoverBorderWidth: 2,
+            hoverBackgroundColor: 'rgba(154, 245, 140)',
+            pointHoverRadius: 5
+          }]
+        },
+        options: {
+                title: {
+                    display: true,
+                        text: "Income Vs Expenses"
+                },
+                legend: {
+                    position: "right",
+                        labels: {
+                        fontColor: "gray"
+                    },
+                    display: true,
+                },
+
+                elements: {
+                    hitRadius: 3,
+                }
+        }
+      });
+      
+    </script>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Stocks.." >
     <table id="myTable">
       <caption>
